@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<h2>Caeser Cipher Challenge</h2>
+
+<p>
+    In his <i> Life of Julius Caeser </i> the Roman historian Suetonius writes:
+    "If he had anything confidential to say, he wrote it in cipher, that is, by
+    so changing the order of the letters of the alphabet, that not a word could
+    be made out. If anyone wishes to decipher these, and get at their meaning,
+    he must substitute the fourth letter of the alphabet, namely D, for A, and
+    so with the others." This is the first recorded use of this encryption
+    scheme, in which characters are shifted by an agreed upon number of
+    positions and is called the "Caeser Cipher" after its most famous user.
+</p>
+
+<p>
+    See if you can crack this cipher text, which has been encrypted using a
+    Caeser Cipher: QEBAFBFPZXPQ
+</p>
+
+<form action="http://127.0.0.1:5000/caeser-cipher-check/" method="post">
+    <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" name="plaintext" id="sample1">
+        <label class="mdl-textfield__label" for="sample1">Decrypted Phrase...</label>
+    </div>
+    <input type="submit" style="margin-bottom: 12px;" class="mdl-button mdl-js-button mdl-button--raised" id="plaintext_submit"></input>
+</form>
+
+<p>
+    {{ message }}
+
+</p>
+
+{% endblock %}

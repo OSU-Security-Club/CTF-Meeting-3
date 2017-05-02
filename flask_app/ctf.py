@@ -16,6 +16,14 @@ challenge_names = {
     "caeser_cipher",
 }
 
+def read_caeser_secrets():
+    f = open('caeser-cipher-keys.txt', 'r')
+    lines = []
+    for line in f:
+        lines.append(line)
+
+    return lines
+
 app = Flask(__name__)
 
 
@@ -34,14 +42,17 @@ def binary_exploit():
 
 @app.route("/caeser-cipher", methods=("GET",))
 def caeser_cipher():
-    return render_template("caeser_cipher.html", challenges=get_challenges())
+    secrets = read_caeser_secrets()
+    return render_template("caeser_cipher.html", challenges=get_challenges(), ciphertext=secrets[1])
 
-@app.route("/caeser-cipher-check/", methods=("POST",))
+@app.route("/caeser-cipher", methods=("POST",))
 def caeser_cipher_check():
-    if request.form['plaintext'].upper() == "THEDIEISCAST" or  request.form['plaintext'].upper() == "THE DIE IS CAST":
-        return render_template("caeser_cipher.html", challenges=get_challenges(), message="Nice work! You cracked it")
+    secrets = read_caeser_secrets()
+
+    if request.form['plaintext'].replace(" ", "").replace("\n", "").upper() == secrets[0].replace(" ", "").replace("\n", "").upper():
+        return render_template("caeser_cipher.html", challenges=get_challenges(), ciphertext=secrets[1], message="Nice work! You cracked it")
     else:
-        return render_template("caeser_cipher.html", challenges=get_challenges(), message="Sorry \"" + request.form['plaintext'] + "\" isn't quite right. Keep trying!")
+        return render_template("caeser_cipher.html", challenges=get_challenges(), ciphertext=secrets[1], message="Sorry \"" + request.form['plaintext'] + "\" isn't quite right. Keep trying!")
 
 
 if __name__ == "__main__":

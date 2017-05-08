@@ -14,6 +14,7 @@ class Challenge(object):
 challenge_names = {
     "binary_exploit",
     "caeser_cipher",
+    "cbc"
 }
 
 app = Flask(__name__)
@@ -49,6 +50,9 @@ def caeser_cipher_check():
     else:
         return render_template("caeser_cipher.html", challenges=get_challenges(), ciphertext=secrets[1], message="Sorry \"" + request.form['plaintext'] + "\" isn't quite right. Keep trying!")
 
+@app.route("/cbc", methods=("GET",))
+def cbc():
+    return render_template("cbc.html", challenges=get_challenges())
 
 if __name__ == "__main__":
     app.run()

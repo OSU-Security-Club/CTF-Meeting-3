@@ -41,7 +41,10 @@ def caeser_cipher():
 def caeser_cipher_check():
     secrets = open('caeser-cipher-keys.txt', 'r').readlines()
 
-    if request.form['plaintext'].replace(" ", "").replace("\n", "").upper() == secrets[0].replace(" ", "").replace("\n", "").upper():
+    attempt = request.form['plaintext'].strip().replace(' ', '').upper()
+    key = secrets[0].strip().replace(' ', '').upper()
+
+    if attempt == key:
         return render_template("caeser_cipher.html", challenges=get_challenges(), ciphertext=secrets[1], message="Nice work! You cracked it")
     else:
         return render_template("caeser_cipher.html", challenges=get_challenges(), ciphertext=secrets[1], message="Sorry \"" + request.form['plaintext'] + "\" isn't quite right. Keep trying!")
